@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  h1= title
+  p Rows: #{query.rows} <br/> Cols: #{query.cols}
+  - var rows = Number(query.rows);
+  - var cols = Number(query.cols);
+  if ( !Number.isInteger(rows) || !Number.isInteger(cols) )
+    p 'rows' and 'cols' must both be integers
+  else
+    if ( rows < 2 || rows > 12 ) 
+      p 'rows' must be between range 2-12
+    else 
+      if ( cols < 2 || cols > 12 )
+        p 'cols' must be between range 2-12
+      else 
+
+        table#outer
+          - for (let i=0; i < rows; i++) {
+
+            tr#middle 
+              - for (let j=0; j < cols; j++) {
+                td
+                  div.content.text-center= j-i
+              - }
+          - }
+
+  style(type='text/css').
+    td {
+      width: 2.5em;
+      padding: 5px;
+      border: 2px solid black;
+    }
+    td .content {
+      aspect-ratio: 1/1;
+    }

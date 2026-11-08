@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  - var image_names = [ "boxer.jpg", "dolphin.webp", "dumbo.jpg", "lamprey.jpg", "orca.jpg" ];
+
+  - for (let i = 0; i < 3; i++) {
+    - var img_idx = Math.floor(Math.random()*5);
+    img(width=300, height=300, src=`../images/${image_names[img_idx]}`, alt=`${image_names[img_idx]}`)
+
+  - }
