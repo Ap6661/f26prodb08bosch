@@ -3,8 +3,28 @@
 
 var seaCreature = require("../models/seaCreature")
 
-exports.seaCreature_list = function(req, res) {
-  res.send('NOT IMPLEMENTED: SeaCreature list');
+exports.seaCreature_list = async function(req, res) {
+  try {
+    let theSeaCreatures = await seaCreature.find();
+    res.send(theSeaCreatures);
+  }
+  catch (err) {
+    res.status(500);
+    res.send(`{"error": ${err}}`)
+  }
+};
+
+exports.seaCreature_view_all_page = async function(req, res) {
+  try
+  {
+    let theSeaCreatures = await seaCreature.find();
+    res.render('seaCreature', { title: 'Sea Creature Search Results', results: theSeaCreatures });
+  }
+  catch(err)
+  {
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+  }
 };
 
 exports.seaCreature_detail = function(req, res) {
