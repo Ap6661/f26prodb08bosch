@@ -4,6 +4,60 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+
+const connectionString = process.env.MONGO_CON;
+var mongoose = require('mongoose');
+mongoose.connect(connectionString);
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB Connection error:'));
+db.once("open", function(){
+  console.log("Connection to MongoDB Successful");
+})
+
+var SeaCreature = require("./models/seaCreature");
+
+async function recreateDB(){
+  await SeaCreature.deleteMany();
+  let instance1 = new SeaCreature({ 
+    "name": "Dumbo Octopus",
+    "genusName": "Grimpoteuthis",
+    "numberOfTeeth": 0, 
+    "isVertebrate": false, 
+  });
+  instance1.save().then(doc=>{
+    console.log("First object saved");
+  }).catch(err=>{
+    console.log(err);
+  });
+  let instance2 = new SeaCreature({ 
+    "name": "Orca",
+    "genusName": "Orcinus",
+    "numberOfTeeth": 20,
+    "isVertebrate": true,
+  });
+  instance2.save().then(doc=>{
+    console.log("Second object saved");
+  }).catch(err=>{
+    console.log(err);
+  });
+  let instance3 = new SeaCreature({ 
+    "name": "Sea Lamprey",
+    "genusName": "Petromyzon",
+    "numberOfTeeth": 100,
+    "isVertebrate": true, 
+  });
+  instance3.save().then(doc=>{
+    console.log("Third object saved");
+  }).catch(err=>{
+    console.log(err);
+  });
+}
+
+let reseed = true;
+if (reseed) { recreateDB(); }
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var seaCreatureRouter = require('./routes/seaCreature');
