@@ -31,8 +31,22 @@ exports.seaCreature_detail = function(req, res) {
   res.send('NOT IMPLEMENTED: SeaCreature detaill:' + req.params.id);
 };
 
-exports.seaCreature_create_post = function(req, res) {
-  res.send('NOT IMPLEMENTED: SeaCreature create POST');
+exports.seaCreature_create_post = async function(req, res) {
+  console.log(req.body);
+  let document = new seaCreature();
+
+  document.name = req.body.name;
+  document.genusName = req.body.genusName;
+  document.numberOfTeeth = req.body.numberOfTeeth;
+  document.isVertebrate = req.body.isVertebrate;
+
+  try {
+    let result = await document.save();
+    res.send(result);
+  } catch (err) {
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+  }
 };
 
 exports.seaCreature_delete = function(req, res) {
