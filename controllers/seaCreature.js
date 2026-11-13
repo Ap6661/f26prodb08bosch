@@ -61,6 +61,23 @@ exports.seaCreature_delete = function(req, res) {
   res.send('NOT IMPLEMENTED: SeaCreature delete DELETE');
 };
 
-exports.seaCreature_update_put = function(req, res) {
-  res.send('NOT IMPLEMENTED: SeaCreature update PUT' + req.params.id);
+exports.seaCreature_update_put = async function(req, res) {
+  console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
+  try {
+    let toUpdate = await seaCreature.findById( req.params.id)
+    // Do updates of properties
+
+    if (req.body.name) toUpdate.name = req.body.name;
+    if (req.body.genusName) toUpdate.genusName = req.body.genusName;
+    if (req.body.numberOfTeeth) toUpdate.numberOfTeeth = req.body.numberOfTeeth;
+    if (req.body.isVertebrate) toUpdate.isVertebrate = req.body.isVertebrate;
+
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
+
+  } catch (err) {
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
+  }
 };
