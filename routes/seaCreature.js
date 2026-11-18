@@ -6,4 +6,7 @@ const seaCreature_controllers = require('../controllers/seaCreature');
 /* GET home page. */
 router.get('/', seaCreature_controllers.seaCreature_view_all_page);
 
+/* GET detail sea creature page */
+router.get('/detail', seaCreature_controllers.seaCreature_view_one_page);
+
 module.exports = router;

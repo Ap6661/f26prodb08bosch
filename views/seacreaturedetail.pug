@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  div.container-fluid
+    div.row 
+      div(style="width: 100%").col-sm-2.text-center
+        span #{toShow.name}
+        div.inner-row ID: #{toShow.id} 
+        div.inner-row Genus: #{toShow.genusName} 
+        div.inner-row Teeth: #{toShow.numberOfTeeth} 
+        div.inner-row Vertebrate: #{toShow.isVertebrate}

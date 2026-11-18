@@ -6,3 +6,20 @@ body {
 a {
   color: #00B7FF;
 }
+
+.col-sm-2 {
+  color: black;
+  background: white;
+  margin: 1px;
+  border-radius: 5px;
+  word-wrap: break-word;
+  border: 1px solid black;
+}
+.inner-row {
+  color: black;
+  background: white;
+  margin: 3px;
+  padding: 3px;
+  border-radius: 5px;
+  border: 1px solid black;
+}

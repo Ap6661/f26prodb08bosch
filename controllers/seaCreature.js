@@ -27,6 +27,19 @@ exports.seaCreature_view_all_page = async function(req, res) {
   }
 };
 
+exports.seaCreature_view_one_page = async function(req, res) {
+  console.log("single view for id " + req.query.id)
+  try {
+    let result = await seaCreature.findById( req.query.id)
+    res.render('seacreaturedetail',
+      { title: 'Sea Creature Detail', toShow: result });
+  }
+  catch(err) {
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+  }
+};
+
 exports.seaCreature_detail = async function(req, res) {
   console.log("detail", req.params.id)
 
