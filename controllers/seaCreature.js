@@ -57,8 +57,16 @@ exports.seaCreature_create_post = async function(req, res) {
   }
 };
 
-exports.seaCreature_delete = function(req, res) {
-  res.send('NOT IMPLEMENTED: SeaCreature delete DELETE');
+exports.seaCreature_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+      var result = await seaCreature.findByIdAndDelete( req.params.id)
+      console.log("Removed " + result)
+      res.send(result)
+    } catch (err) {
+      res.status(500)
+      res.send(`{"error": Error deleting ${err}}`);
+    };
 };
 
 exports.seaCreature_update_put = async function(req, res) {
