@@ -18,7 +18,6 @@ block content
 
     div.form-group
       label.seaCreatureAttr(for='isVertebrate') Is a Vertebrate:&nbsp;
-      input#isVertebrateDefault(type='hidden', name='isVertebrate', value='false')
       input#isVertebrate(type='checkbox', name='isVertebrate', value='true')
 
     input(type="submit")
@@ -27,9 +26,13 @@ block content
     document.forms['SeaCreatureForm'].addEventListener('submit', (event) => {
       event.preventDefault();
       // TODO do something here to show user that form is being submitted
+
+      let data = new FormData(event.target);
+      data.set("isVertebrate", document.getElementById("isVertebrate").checked ? true : false);
+
       fetch(event.target.action, {
           method: 'POST',
-          body: new URLSearchParams(new FormData(event.target)) 
+          body: new URLSearchParams(data) 
         }).then((resp) => {
           return resp.json(); // or resp.text() or whatever the server sends
         }).then((body) => {
