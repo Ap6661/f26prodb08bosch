@@ -102,3 +102,14 @@ exports.seaCreature_update_put = async function(req, res) {
     res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
   }
 };
+
+exports.seaCreature_create_page = function(req, res) {
+  console.log("create view")
+  try {
+    res.render('seacreaturecreate', { title: 'Sea Creature Create'});
+  }
+  catch(err) {
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+  }
+};

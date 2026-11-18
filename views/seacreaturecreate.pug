@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  h1= title
+  form(id='SeaCreatureForm', action="/resource/SeaCreatures", method="POST")
+
+    div.form-group
+      label.seaCreatureAttr(for='name') Sea Creature Name:&nbsp;
+      input#name(type='text', name='name')
+
+    div.form-group
+      label.seaCreatureAttr(for='genusName') Genus Name:&nbsp;
+      input#genusName(type='text', name='genusName')
+
+    div.form-group
+      label.seaCreatureAttr(for='numberOfTeeth') Number of Teeth:&nbsp;
+      input#numberOfTeeth(type='number', name='numberOfTeeth')
+
+    div.form-group
+      label.seaCreatureAttr(for='isVertebrate') Is a Vertebrate:&nbsp;
+      input#isVertebrate(type='checkbox', name='isVertebrate', value='true')
+
+    input(type="submit")
+  
+  script.
+    document.forms['SeaCreatureForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+          method: 'POST',
+          body: new URLSearchParams(new FormData(event.target)) 
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Save succeded")
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Save failed " + error )
+        });
+      });
