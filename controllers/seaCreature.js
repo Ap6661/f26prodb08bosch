@@ -113,3 +113,18 @@ exports.seaCreature_create_page = function(req, res) {
     res.send(`{'error': '${err}'}`);
   }
 };
+
+exports.seaCreature_update_page = async function(req, res) {
+  console.log("update view for " + req.query.id)
+  try {
+    let result = await seaCreature.findById(req.query.id);
+    res.render('seacreatureupdate', { 
+      title: 'Sea Creature Update',
+      toShow: result 
+    });
+  }
+  catch(err) {
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+  }
+};

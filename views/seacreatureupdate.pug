@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  h1= title
+  hr
+  h4= toShow._id
+  form(id='SeaCreatureForm', action="/resource/SeaCreatures/"+toShow._id, method="PUT")
+
+    div.form-group
+      label.seaCreatureAttr(for='name') Sea Creature Name:&nbsp;
+      input#name(type='text', name='name', value=toShow.name)
+
+    div.form-group
+      label.seaCreatureAttr(for='genusName') Genus Name:&nbsp;
+      input#genusName(type='text', name='genusName', value=toShow.genusName)
+
+    div.form-group
+      label.seaCreatureAttr(for='numberOfTeeth') Number of Teeth:&nbsp;
+      input#numberOfTeeth(type='number', name='numberOfTeeth', value=toShow.numberOfTeeth)
+
+    div.form-group
+      label.seaCreatureAttr(for='isVertebrate') Is a Vertebrate:&nbsp;
+      input#isVertebrate(type='checkbox', name='isVertebrate', value='true', checked=toShow.isVertebrate)
+
+    input(type="submit")
+  
+  script.
+    document.forms['SeaCreatureForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      let data = new FormData(event.target);
+      data.set("isVertebrate", document.getElementById("isVertebrate").checked ? true : false);
+
+      fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(data) 
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Save succeded\n"+body._id)
+          console.log(body)
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Save failed " + error )
+        });
+      });
