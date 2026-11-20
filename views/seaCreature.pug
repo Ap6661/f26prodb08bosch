@@ -5,13 +5,21 @@ block content
   div.container-fluid
     div.row 
       each s, i in results
-        div(onClick=`buy(${i})`).col-sm-2.text-center
+        - let destination = `dispatch("/seaCreature/update?id=${s._id}")`
+        div.col-sm-2.text-center.flex-column.d-flex
           span #{s.name}
           div.inner-row Genus: #{s.genusName} 
           div.inner-row Teeth: #{s.numberOfTeeth} 
           div.inner-row Vertebrate: #{s.isVertebrate}
+          div.mt-auto
+          div.inner-row
+              button.btn.btn-success.btn-sm.m-1(onClick=`buy(${i})`) Buy
+              button.btn.btn-primary.btn-sm.m-1(onClick=destination) Update
 
   script.
     function buy(y) {
       alert(`You Purchased ${y}!`)
+    }
+    function dispatch(path) {
+      window.location.href=path;
     }
