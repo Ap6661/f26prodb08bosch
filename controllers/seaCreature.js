@@ -128,3 +128,18 @@ exports.seaCreature_update_page = async function(req, res) {
     res.send(`{'error': '${err}'}`);
   }
 };
+
+exports.seaCreature_delete_page = async function(req, res) {
+  console.log("delete view for " + req.query.id)
+  try {
+    let result = await seaCreature.findById(req.query.id);
+    res.render('seacreaturedelete', { 
+      title: 'Sea Creature Delete',
+      toShow: result 
+    });
+  }
+  catch(err) {
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+  }
+};

@@ -15,4 +15,7 @@ router.get('/create', seaCreature_controllers.seaCreature_create_page);
 /* GET create update page */
 router.get('/update', seaCreature_controllers.seaCreature_update_page);
 
+/* GET delete page */
+router.get('/delete', seaCreature_controllers.seaCreature_delete_page);
+
 module.exports = router;

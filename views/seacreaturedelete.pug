@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1= title
+  div.container-fluid
+    div.row 
+      div(style="width: 100%").col-sm-2.text-center
+        span #{toShow.name}
+        div.inner-row ID: #{toShow.id} 
+        div.inner-row Genus: #{toShow.genusName} 
+        div.inner-row Teeth: #{toShow.numberOfTeeth} 
+        div.inner-row Vertebrate: #{toShow.isVertebrate}
+        div
+          button.btn.btn-danger.m-2(onClick="deleteOnId()") Delete
+          button.btn.btn-warning.m-2(onClick="cancel()") Cancel
+
+  script.
+    function cancel() {
+        window.location.href = "/seaCreature"
+    }
+    
+    function deleteOnId() {
+      console.log("starting delete")
+        fetch("/resource/seaCreatures/#{toShow._id}", {
+
+          method: 'DELETE' 
+
+        }).then((resp) => {
+
+          return resp.json(); 
+
+        }).then((body) => {
+
+          alert("Delete succeded")
+          window.location.href='/seaCreature'
+
+        }).catch((error) => {
+
+          alert("Delete failed " + error )
+
+      });
+    }
+
